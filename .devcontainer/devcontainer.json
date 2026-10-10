@@ -1,0 +1,24 @@
+{
+  "name": "Temporal E-Commerce Dev Container (Python 3.14)",
+  "dockerComposeFile": "docker-compose.yml",
+  "service": "app",
+  "workspaceFolder": "/workspace",
+  "customizations": {
+    "vscode": {
+      "settings": {
+        "python.analysis.extraPaths": ["/workspace"]
+      },
+      "extensions": [
+        "ms-python.python",
+        "ms-python.vscode-pylance",
+        "charliermarsh.ruff",
+        "tamasfe.even-better-toml",
+        "rohaquinlop.complexipy",
+        "meta.pyrefly",
+        "google.google-antigravity",
+        "ms-azuretools.vscode-containers"
+      ] 
+    }
+  },
+  "postCreateCommand": "bash .devcontainer/post-create.sh"
+}

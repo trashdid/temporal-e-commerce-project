@@ -1,0 +1,16 @@
+.venv/
+env/
+venv/
+
+__pycache__/
+*.py[cod]
+*$py.class
+
+.pytest_cache/
+.coverage
+htmlcov/
+
+.DS_Store
+.vscode/*
+!.vscode/settings.json
+!.vscode/extensions.json

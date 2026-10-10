@@ -1,0 +1,27 @@
+version: '3.8'
+
+services:
+  app:
+    image: mcr.microsoft.com/devcontainers/python:3.14
+    volumes:
+      - ..:/workspace:cached
+    command: sleep infinity
+    depends_on:
+      - temporal
+    environment:
+      - TEMPORAL_ADDRESS=temporal:7233
+    networks:
+      - temporal-network
+
+  temporal:
+    image: temporalio/temporal:latest
+    command: server start-dev --ip 0.0.0.0
+    ports:
+      - "7233:7233"
+      - "8233:8233"
+    networks:
+      - temporal-network
+
+networks:
+  temporal-network:
+    driver: bridge
