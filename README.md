@@ -4,6 +4,9 @@ A durable execution engine demonstrating resilient, fault-tolerant distributed t
 
 This project implements an end-to-end e-commerce order fulfillment pipeline, progressing from basic synchronous orchestration to distributed sagas, idempotency, and human-in-the-loop workflows.
 
+While inspired by the core patterns in [Temporal's Money Transfer Project Template](https://github.com/temporalio/money-transfer-project-template-python), this implementation expands beyond a two-step transfer into an enterprise-style e-commerce fulfillment pipeline with human-in-the-loop signals, live queries, long-running timers, and multi-step distributed saga compensations.
+
+
 ---
 
 ## 💡 Why Temporal? (The Architectural Problem)
@@ -132,4 +135,20 @@ uv run pytest
 
 - **Activity Tests:** Validates individual activity logic in isolation using `ActivityEnvironment`.
 - **Workflow Tests:** Runs full integration tests with an ephemeral test worker using `WorkflowEnvironment.start_time_skipping()`.
+
+---
+
+## 📚 Architectural Lineage & References
+
+This project synthesizes canonical distributed systems literature and reference architectures into a practical evaluation benchmark:
+
+1. **Temporal Reference Architectures:**
+   - **[Money Transfer Sample](https://github.com/temporalio/money-transfer-project-template-python):** Baseline for state transitions, network timeout retries, and Stripe idempotency keys (Phases 1 & 2).
+   - **[Trip Booking Saga Sample](https://github.com/temporalio/samples-python):** Foundational model for compensating transactions and failure recovery (Phase 4), adapted here into an e-commerce fulfillment flow.
+
+2. **Distributed Systems Literature:**
+   - **Chris Richardson (*Microservices Patterns* / [Microservices.io](https://microservices.io)):** The multi-step Order Management System is the industry benchmark for distributed transactions across bounded contexts (Billing, Inventory, and Fulfillment).
+
+3. **The Cadence / Temporal Lineage:**
+   - Temporal originates from **Cadence**, developed at Uber by Maxim Fateev and Samar Abbas to manage complex, stateful business processes (rider-driver matching, payment splitting, and physical-to-digital state machines). The human-in-the-loop fraud delay (Phase 3) mirrors these stateful workflows.
 
