@@ -1,3 +1,6 @@
+from dataclasses import replace
+
+import pytest
 from temporalio.testing import ActivityEnvironment
 
 from temporal_ecommerce.activities import (
@@ -18,8 +21,12 @@ async def test_charge_customer_card():
         amount_cents=2500
     )
 
+    with pytest.raises(RuntimeError):
+        await env.run(charge_customer_card, order)
+
+    env.info = replace(env.info, attempt=3)
     result = await env.run(charge_customer_card, order)
-    assert result == "fake_credit_card_company_ch_CHARGE-TEST-1"
+    assert result == f"ch_credit_card_company_{order.order_id}"
 
 
 async def test_update_inventory_database():

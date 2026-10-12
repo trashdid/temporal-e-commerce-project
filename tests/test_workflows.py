@@ -40,5 +40,5 @@ async def test_process_order_workflow_success():
             )
 
             assert "ORD-TEST-99" in result
-            assert "fake_credit_card_company_ch_ORD-TEST-99" in result
+            assert "ch_credit_card_company_ORD-TEST-99" in result
     

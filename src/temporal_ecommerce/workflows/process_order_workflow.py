@@ -1,6 +1,7 @@
 from datetime import timedelta
 
 from temporalio import workflow
+from temporalio.common import RetryPolicy
 
 from ..models import OrderInput
 
@@ -16,10 +17,18 @@ with workflow.unsafe.imports_passed_through():
 class ProcessOrderWorkflow:
     @workflow.run
     async def run(self, order: OrderInput) -> str:
+        payment_retry_policy = RetryPolicy(
+            initial_interval=timedelta(seconds=1),
+            backoff_coefficient=2.0,
+            maximum_interval=timedelta(seconds=10),
+            maximum_attempts=5
+        )
+
         payment_id = await workflow.execute_activity(
             charge_customer_card,
             order,
-            start_to_close_timeout=timedelta(seconds=10)
+            start_to_close_timeout=timedelta(seconds=10),
+            retry_policy=payment_retry_policy
         )
 
         await workflow.execute_activity(

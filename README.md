@@ -48,7 +48,7 @@ This project is built across 4 progressive phases:
   - Separation of concerns: Deterministic workflow orchestration vs. activity execution.
   - Asynchronous task queues and pull-based worker polling.
   - End-to-end test suite using Temporal's in-memory `WorkflowEnvironment`.
-- [ ] **Phase 2: Fault Tolerance & Idempotency**
+- [X] **Phase 2: Fault Tolerance & Idempotency**
   - Simulated transient network faults (Stripe timeouts).
   - Exponential backoff & jitter with custom `RetryPolicy`.
   - Idempotency key pattern to prevent duplicate charges across retries.
